@@ -13,3 +13,5 @@ MD_PATH = '/home/tienon/report/2019'
 SITE_1 = 4
 SITE_2 = 31
 CELL = 30
+
+TO_USER = ['liaohongyuan@tienon-xm.com', 'zhangyetao@tienon-xm.com']

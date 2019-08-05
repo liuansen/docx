@@ -10,7 +10,7 @@ from datetime import date, datetime, timedelta
 from docx import Document
 import xlwt
 
-from settings import MD_PATH, SITE_1, SITE_2, CELL
+from settings import MD_PATH, SITE_1, SITE_2, CELL, TO_USER
 from Send_Mail import SendEmail
 
 
@@ -363,7 +363,7 @@ def main():
 
     subject = '厦开项目组周报{0}至{1}'.format(first_date, end_date)
     body = '你好，周报在附件，请查收！'
-    to_user = '443877461@qq.com'
+    to_user = TO_USER
     curr_path = os.getcwd()
     save_name = '厦开项目组周报{0}至{1}.docx'.format(first_date, end_date)
     email_path_1 = curr_path + '/{0}'.format(save_name)
