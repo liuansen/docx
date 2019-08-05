@@ -11,6 +11,7 @@ from docx import Document
 import xlwt
 
 from settings import MD_PATH, SITE_1, SITE_2, CELL
+from Send_Mail import SendEmail
 
 
 reload(sys)
@@ -35,11 +36,11 @@ def get_file_path(path, week_of, table1, table2, first_date, today, worksheet, s
     file_date = date.today().strftime('%Y-%m')
     for filename in os.listdir(path):
         file_path = os.path.join(path, filename)
-        group_name = re.findall(r'.*2019-08-(.*)..*', filename)[0][0:-2]
         fd = filename[:7]
         md = file_path[-2:]
         if md == 'md':
             if fd == file_date:
+                group_name = re.findall(r'.*2019-08-(.*)..*', filename)[0][0:-2]
                 with open(file_path) as f:
                     lines = f.readlines()
                 lines = [i.strip('-').strip() for i in lines]
@@ -359,10 +360,30 @@ def main():
                   site_1, site_2, first_date_of, end_date_of)
     # # 后半部函数
     # create_fixed_cell_tow(document)
+
+    subject = '厦开项目组周报{0}至{1}'.format(first_date, end_date)
+    body = '你好，周报在附件，请查收！'
+    to_user = '443877461@qq.com'
+    curr_path = os.getcwd()
     save_name = '厦开项目组周报{0}至{1}.docx'.format(first_date, end_date)
+    email_path_1 = curr_path + '/{0}'.format(save_name)
     document.save(save_name)
+    s1 = SendEmail(subject, body, to_user)
+    ret_s1 = s1.handle(email_path_1, 'weekly.docx')
+    if ret_s1:
+        print("邮件发送成功")
+    else:
+        print("邮件发送失败")
+
     excel_name = '新一代核心系统建设项目周报{0}_天用厦开安全项目组.xls'.format(end_date)
+    email_path_2 = curr_path + '/{0}'.format(excel_name)
     workbook.save(excel_name)
+    s2 = SendEmail(subject, body, to_user)
+    ret_s2 = s2.handle(email_path_2, 'weekly.xls')
+    if ret_s2:
+        print("邮件发送成功")
+    else:
+        print("邮件发送失败")
 
 
 if __name__ == '__main__':
