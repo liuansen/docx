@@ -324,6 +324,11 @@ def main():
     end_date = (time_now + timedelta(days=2)).strftime("%Y-%m-%d")
     first_date_of = (time_now + timedelta(days=3)).strftime("%Y-%m-%d")
     end_date_of = (time_now + timedelta(days=7)).strftime("%Y-%m-%d")
+    if datetime.now().weekday() == 5:
+        first_date = (time_now + timedelta(days=-5)).strftime("%Y-%m-%d")
+        end_date = (time_now + timedelta(days=1)).strftime("%Y-%m-%d")
+        first_date_of = (time_now + timedelta(days=2)).strftime("%Y-%m-%d")
+        end_date_of = (time_now + timedelta(days=6)).strftime("%Y-%m-%d")
     # 生成excel表格
     workbook = xlwt.Workbook()
     worksheet = workbook.add_sheet('周报', cell_overwrite_ok=True)

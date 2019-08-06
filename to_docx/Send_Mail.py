@@ -6,7 +6,6 @@ import smtplib
 import base64
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from email.mime.application import MIMEApplication
 from email.utils import formataddr
 
 from settings import MAIL_SMTP, MAIL_HOST, MAIL_USER, MAIL_PWD
@@ -52,7 +51,7 @@ class SendEmail(object):
 
 if __name__ == '__main__':
     s = SendEmail('', '', '')
-    ret_s = s.handle('')
+    ret_s = s.handle('', '')
     if ret_s:
         print("邮件发送成功")
     else:
