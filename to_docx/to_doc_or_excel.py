@@ -368,22 +368,24 @@ def main():
     save_name = '厦开项目组周报{0}至{1}.docx'.format(first_date, end_date)
     email_path_1 = curr_path + '/{0}'.format(save_name)
     document.save(save_name)
-    s1 = SendEmail(subject, body, to_user)
-    ret_s1 = s1.handle(email_path_1, 'weekly.docx')
-    if ret_s1:
-        print("邮件发送成功")
-    else:
-        print("邮件发送失败")
 
     excel_name = '新一代核心系统建设项目周报{0}_天用厦开安全项目组.xls'.format(end_date)
     email_path_2 = curr_path + '/{0}'.format(excel_name)
     workbook.save(excel_name)
-    s2 = SendEmail(subject, body, to_user)
-    ret_s2 = s2.handle(email_path_2, 'weekly.xls')
-    if ret_s2:
-        print("邮件发送成功")
-    else:
-        print("邮件发送失败")
+
+    for user in to_user:
+        s1 = SendEmail(subject, body, user)
+        ret_s1 = s1.handle(email_path_1, save_name)
+        if ret_s1:
+            print("邮件发送成功")
+        else:
+            print("邮件发送失败")
+        s2 = SendEmail(subject, body, user)
+        ret_s2 = s2.handle(email_path_2, excel_name)
+        if ret_s2:
+            print("邮件发送成功")
+        else:
+            print("邮件发送失败")
 
 
 if __name__ == '__main__':

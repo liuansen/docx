@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 
 import smtplib
+import base64
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
@@ -33,10 +34,11 @@ class SendEmail(object):
             msg['Subject'] = self.subject
 
             if len(file_path) != 0:
-                att1 = MIMEText(open(file_path, 'rb').read(), 'base64', 'utf-8')
-                att1["Content-Type"] = 'application/octet-stream'
-                att1["Content-Disposition"] = 'attachment; filename="{0}"'.format(file_name)
-                msg.attach(att1)
+                att = MIMEText(open(file_path, 'rb').read(), 'base64', 'UTF-8')
+                att["Content-Type"] = 'application/octet-stream'
+                att.add_header('Content-Disposition', 'attachment',
+                               filename='=?utf-8?b?' + base64.b64encode(file_name.encode('UTF-8')) + '?=')
+                msg.attach(att)
 
             server = smtplib.SMTP_SSL(self.mail_smtp, self.mail_host)  
             server.login(self.mail_user, self.mail_pwd)
