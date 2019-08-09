@@ -15,5 +15,5 @@ SITE_1 = 4
 SITE_2 = 67
 CELL = 66
 
-TO_USER = ['liaohongyuan@tienon-xm.com', 'zhangyetao@tienon-xm.com']
+TO_USER = ['liaohongyuan@tienon-xm.com', 'liuansen@tienon-xm.com']
 # TO_USER = ['liuansen@tienon-xm.com', ]
