@@ -20,6 +20,7 @@ sys.setdefaultencoding('utf-8')
 
 def get_file_path(path, week_of, table1, table2, first_date, today, worksheet, site_1, site_2,
                   first_date_of, today_of):
+    print week_of
     style = xlwt.XFStyle()
     bl = xlwt.Borders()
     bl.left = xlwt.Borders.THIN
@@ -44,14 +45,13 @@ def get_file_path(path, week_of, table1, table2, first_date, today, worksheet, s
                 with open(file_path) as f:
                     lines = f.readlines()
                 lines = [i.strip('-').strip() for i in lines]
-                if len(lines) == 0:
-                    first_index = 0
-                else:
-                    for key, value in enumerate(lines):
-                        if value == week_of:
-                            first_index = key
-                        else:
-                            first_index = 0
+                first_index = 0
+                for key, value in enumerate(lines):
+                    if value == week_of:
+                        first_index = key
+                print first_index
+                if first_index == 0:
+                    continue
                 k = 0
                 line_list = []
                 index = 0
@@ -289,7 +289,7 @@ def to_excel(worksheet, first_date, end_date):
     worksheet.write(SITE_1, 7, '实际%', style)
     worksheet.write(SITE_1, 8, '偏差%', style)
     worksheet.write(SITE_1, 9, '进展说明', style)
-    worksheet.write_merge(SITE_2, SITE_2+31, 0, 0, '二.下周工作计划', style)
+    worksheet.write_merge(SITE_2, SITE_2+CELL+1, 0, 0, '二.下周工作计划', style)
     worksheet.write(SITE_2, 1, '序号', style)
     worksheet.write(SITE_2, 2, '工作事项名称', style)
     worksheet.write(SITE_2, 3, '开始时间', style)
@@ -297,21 +297,21 @@ def to_excel(worksheet, first_date, end_date):
     worksheet.write(SITE_2, 5, '责任人', style)
     worksheet.write_merge(SITE_2, SITE_2, 6, 8, '计划输出结果', style)
     worksheet.write(SITE_2, 9, '说明', style)
-    worksheet.write_merge(SITE_2+32, SITE_2+41, 0, 0, '三.目前存在的问题以及需要协调解决的事项', style)
-    worksheet.write(SITE_2+32, 1, '序号', style)
-    worksheet.write(SITE_2+32, 2, '问题名称', style)
-    worksheet.write_merge(SITE_2+32, SITE_2+32, 3, 4, '问题描述', style)
-    worksheet.write(SITE_2+32, 5, '提出日期', style)
-    worksheet.write(SITE_2+32, 6, '提出人团体', style)
-    worksheet.write(SITE_2+32, 7, '解决责任团队', style)
-    worksheet.write(SITE_2+32, 8, '预期解决时间', style)
-    worksheet.write(SITE_2+32, 9, '解决建议方案和计划', style)
-    worksheet.write_merge(SITE_2+42, SITE_2+47, 0, 0, '四.本周质量管理方面的工作总结', style)
-    worksheet.write(SITE_2+42, 1, '序号', style)
-    worksheet.write_merge(SITE_2+42, SITE_2+42, 2, 9, '进展说明', style)
-    worksheet.write_merge(SITE_2+48, SITE_2+53, 0, 0, '五.本周配置管理方面的工作总结', style)
-    worksheet.write(SITE_2+48, 1, '序号', style)
-    worksheet.write_merge(SITE_2+48, SITE_2+48, 2, 9, '进展说明', style)
+    worksheet.write_merge(SITE_2+CELL+2, SITE_2+CELL+11, 0, 0, '三.目前存在的问题以及需要协调解决的事项', style)
+    worksheet.write(SITE_2+CELL+2, 1, '序号', style)
+    worksheet.write(SITE_2+CELL+2, 2, '问题名称', style)
+    worksheet.write_merge(SITE_2+CELL+2, SITE_2+CELL+2, 3, 4, '问题描述', style)
+    worksheet.write(SITE_2+CELL+2, 5, '提出日期', style)
+    worksheet.write(SITE_2+CELL+2, 6, '提出人团体', style)
+    worksheet.write(SITE_2+CELL+2, 7, '解决责任团队', style)
+    worksheet.write(SITE_2+CELL+2, 8, '预期解决时间', style)
+    worksheet.write(SITE_2+CELL+2, 9, '解决建议方案和计划', style)
+    worksheet.write_merge(SITE_2+CELL+12, SITE_2+CELL+15, 0, 0, '四.本周质量管理方面的工作总结', style)
+    worksheet.write(SITE_2+CELL+12, 1, '序号', style)
+    worksheet.write_merge(SITE_2+CELL+12, SITE_2+CELL+12, 2, 9, '进展说明', style)
+    worksheet.write_merge(SITE_2+CELL+18, SITE_2+CELL+23, 0, 0, '五.本周配置管理方面的工作总结', style)
+    worksheet.write(SITE_2+CELL+18, 1, '序号', style)
+    worksheet.write_merge(SITE_2+CELL+18, SITE_2+CELL+18, 2, 9, '进展说明', style)
 
 
 def main():
